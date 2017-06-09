@@ -3,3 +3,11 @@
 ed by .ignore support plugin (hsz.mobi)
 /Food_Recognition_MIM.iml
 /.idea
+/out/
+.idea/compiler.xml
+.idea/copyright/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+out/
