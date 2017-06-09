@@ -24,6 +24,7 @@ public class DNNExtractor {
 	
 	public DNNExtractor() {		
 		//Create the importer of Caffe framework network
+		//HAHAHAHHAHAHAH
 		Importer importer = createCaffeImporter(new File(Parameters.DEEP_PROTO).getPath(), new File(Parameters.DEEP_MODEL).getPath());
 		
 		//Initialize the network
