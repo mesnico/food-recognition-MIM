@@ -25,7 +25,7 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>javacpp</artifactId>
-            <version>1.2</version>
+            <version>1.3</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
         <dependency>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>org.bytedeco</groupId>
             <artifactId>javacv</artifactId>
-            <version>1.2</version>
+            <version>1.3.2</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-common -->
         <dependency>
@@ -57,12 +57,13 @@
             <artifactId>lucene-queries</artifactId>
             <version>6.4.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/nu.pattern/opencv -->
+        <!-- https://mvnrepository.com/artifact/org.bytedeco.javacpp-presets/opencv -->
         <dependency>
-            <groupId>nu.pattern</groupId>
+            <groupId>org.bytedeco.javacpp-presets</groupId>
             <artifactId>opencv</artifactId>
-            <version>2.4.9-4</version>
+            <version>3.2.0-1.3</version>
         </dependency>
+
 
     </dependencies>
 
