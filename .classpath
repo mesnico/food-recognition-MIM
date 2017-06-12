@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/javacpp.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/javacv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/lucene-analyzers-common-6.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/lucene-backward-codecs-6.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/lucene-core-6.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/lucene-queryparser-6.4.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/opencv-windows-x86_64.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_65">
-		<attributes>
-			<attribute name="owner.project.facets" value="java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
@@ -25,5 +8,18 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/javacpp.jar"/>
+	<classpathentry kind="lib" path="lib/javacv.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-analyzers-common-6.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-backward-codecs-6.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-core-6.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/lucene-queryparser-6.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-linux-x86.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="lib/opencv-windows-x86.jar"/>
+	<classpathentry kind="lib" path="lib/opencv.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
