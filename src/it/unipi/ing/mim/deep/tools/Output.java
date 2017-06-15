@@ -10,9 +10,9 @@ import java.util.List;
 public class Output {
 
 	public static final int COLUMNS = 5;
-
-	public static void toHTML(List<ImgDescriptor> ids, String baseURI, File outputFile) {
-		String html = "<html>\n<body>\n<table align='center'>\n";
+	
+	public static String generateHtmlResultsTable(List<ImgDescriptor> ids, String baseURI){
+		String html = "<table align='center'>\n";
 
 		for (int i = 0; i < ids.size(); i++) {
 			System.out.println(i + " - " + (float) ids.get(i).getDist() + "\t" + ids.get(i).getId() );
@@ -28,7 +28,15 @@ public class Output {
 		if (ids.size() != 0)
 			html += "</tr>\n";
 
-		html += "</table>\n</body>\n</html>";
+		html += "</table>";
+		
+		return html;
+	}
+
+	public static void toHTML(List<ImgDescriptor> ids, String baseURI, File outputFile) {
+		String html = "<html>\n<body>\n";
+		html += generateHtmlResultsTable(ids, baseURI);
+		html += "</body>\n</html>";
 		
 		try {
 	        string2File(html, outputFile);

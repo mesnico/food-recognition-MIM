@@ -11,6 +11,11 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import it.unipi.ing.mim.deep.ImgDescriptor;
+import it.unipi.ing.mim.deep.Parameters;
+import it.unipi.ing.mim.deep.tools.Output;
+import it.unipi.ing.mim.img.lucene.LucImageSearch;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,10 +39,8 @@ public class RecognitionServlet extends HttpServlet {
         
         writer.write("<!DOCTYPE html>"+
                             "<html lang='en'> <head> <meta charset='UTF-8'>"+
-                            "<title>Success Creation</title> </head>"+
-                            "<body> <h2>L'azione &eacute stata completata con successo!</h2>"+
-                            "<a href='index.html'>Clicca qui per tornare al pannello principale</a>"+
-                            "</body> </html>");
+                            "<title>Search results</title> </head>"+
+                            "<body> <h2>Search results</h2>");
         response.setStatus(200);
         
         //create the filePath if not exists
@@ -86,8 +89,15 @@ public class RecognitionServlet extends HttpServlet {
               }
               System.out.println(file.getAbsolutePath());
               fi.write( file ) ;
+              
+              LucImageSearch l = new LucImageSearch(Parameters.PIVOTS_FILE, Parameters.TOP_K_QUERY);
+              List<ImgDescriptor> foundImages = l.recognizeImage(file);
+              String htmlResultTable = Output.generateHtmlResultsTable(foundImages, Parameters.BASE_URI);
+              writer.write(htmlResultTable);
            }
         }
+        writer.write("<a href='index.html'>Clicca qui per tornare al pannello principale</a>"+
+                     "</body> </html>");
      }catch(Exception ex) {
          System.out.println(ex);
      }

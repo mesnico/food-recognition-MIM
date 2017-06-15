@@ -55,6 +55,25 @@ public class LucImageSearch {
 		Output.toHTML(resReordered, Parameters.BASE_URI, Parameters.RESULTS_HTML_REORDERED);
 	}
 	
+public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{		
+		openIndex(Parameters.LUCENE_PATH);
+		
+		DNNExtractor extractor = new DNNExtractor();
+		
+		float[] imgFeatures = extractor.extract(imgQuery, Parameters.DEEP_LAYER);
+		
+		ImgDescriptor query = new ImgDescriptor(imgFeatures, imgQuery.getName(), "");
+				
+		List<ImgDescriptor> resLucene = search(query, Parameters.K);
+		//Output.toHTML(resLucene, Parameters.BASE_URI, Parameters.RESULTS_HTML_LUCENE);
+		
+		//Uncomment for the optional step
+		List<ImgDescriptor> resReordered = reorder(query, resLucene, Parameters.K_REORDER);
+		//Output.toHTML(resReordered, Parameters.BASE_URI, Parameters.RESULTS_HTML_REORDERED);
+		
+		return resReordered;
+	}
+	
 	//TODO
 	public LucImageSearch(File pivotsFile, int topKSearch) throws ClassNotFoundException, IOException {
 		//Initialize fields
