@@ -21,5 +21,7 @@
 	<classpathentry kind="lib" path="lib/opencv-windows-x86_64.jar"/>
 	<classpathentry kind="lib" path="lib/opencv-windows-x86.jar"/>
 	<classpathentry kind="lib" path="lib/opencv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/commons-fileupload-1.3.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nicky/Documents/EclipseProjects/food-recognition-MIM/lib/commons-io-2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -51,7 +51,7 @@ public class LucImageSearch {
 		Output.toHTML(resLucene, Parameters.BASE_URI, Parameters.RESULTS_HTML_LUCENE);
 		
 		//Uncomment for the optional step
-		List<ImgDescriptor> resReordered = imgSearch.reorder(query, resLucene);
+		List<ImgDescriptor> resReordered = imgSearch.reorder(query, resLucene, Parameters.K_REORDER);
 		Output.toHTML(resReordered, Parameters.BASE_URI, Parameters.RESULTS_HTML_REORDERED);
 	}
 	
@@ -98,7 +98,7 @@ public class LucImageSearch {
 	}
 	
 	//TODO
-	public List<ImgDescriptor> reorder(ImgDescriptor queryF, List<ImgDescriptor> res) throws IOException, ClassNotFoundException {
+	public List<ImgDescriptor> reorder(ImgDescriptor queryF, List<ImgDescriptor> res, int k) throws IOException, ClassNotFoundException {
 		//Optional Step!!!
 		//LOOP
 		//for each result evaluate the distance with the query, call  setDist to set the distance, then sort the results
@@ -107,6 +107,7 @@ public class LucImageSearch {
 			res.get(i).setDist(distance);
 		}
 		Collections.sort(res);
+		res = res.subList(0, k-1);
 		return res;
 	}
 }

@@ -19,8 +19,11 @@ public class Parameters {
 	//Features Storage File
 	public static final File STORAGE_FILE = new File("data/deep.seq.dat");
 	
-	//k-Nearest Neighbors
-	public static final int K = 30;
+	//k-Nearest Neighbors returned by Lucene
+	public static final int K = 100;
+	
+	//Among the K images returned, the best 30 according to the real distance are returned.
+	public static final int K_REORDER = 30;
 	
 	//Pivots File
 	public static final File  PIVOTS_FILE = new File("out/deep.pivots.dat");
