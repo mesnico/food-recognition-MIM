@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
+import it.unipi.ing.mim.deep.tools.KNNClassifier;
 import it.unipi.ing.mim.deep.tools.Output;
 import it.unipi.ing.mim.img.lucene.LucImageSearch;
 
@@ -29,18 +30,17 @@ import java.util.List;
  */
 public class RecognitionServlet extends HttpServlet {
    private boolean isMultipart;
-   private String filePath = "uploaded";
+   private String filePath = "uploaded/";
    private int maxFileSize = 50 * 1024;
    private int maxMemSize = 4 * 1024;
    private File file ;
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer=response.getWriter();
-        
         writer.write("<!DOCTYPE html>"+
                             "<html lang='en'> <head> <meta charset='UTF-8'>"+
                             "<title>Search results</title> </head>"+
-                            "<body> <h2>Search results</h2>");
+                            "<body> <h2>Best hypothesis for this image: </h2>");
         response.setStatus(200);
         
         //create the filePath if not exists
@@ -92,8 +92,9 @@ public class RecognitionServlet extends HttpServlet {
               
               LucImageSearch l = new LucImageSearch(Parameters.PIVOTS_FILE, Parameters.TOP_K_QUERY);
               List<ImgDescriptor> foundImages = l.recognizeImage(file);
+              String classification = KNNClassifier.classify(foundImages);
               String htmlResultTable = Output.generateHtmlResultsTable(foundImages, Parameters.BASE_URI);
-              writer.write(htmlResultTable);
+              writer.write("<p>"+classification+"</p><h2>Most similar images: </h2>" + htmlResultTable);
            }
         }
         writer.write("<a href='index.html'>Clicca qui per tornare al pannello principale</a>"+

@@ -1,6 +1,7 @@
 package it.unipi.ing.mim.deep.tools;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
+import it.unipi.ing.mim.deep.Parameters;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,8 +23,8 @@ public class Output {
 					html += "</tr>\n";
 				html += "<tr>\n";
 			}
-			html += "<td><img align='center' border='0' height='160' title='" + ids.get(i).getName() + ", dist: "
-			        + ids.get(i).getDist() + "' src='" + baseURI + ids.get(i).getName()+ '/' + ids.get(i).getId() + "'></td>\n";
+			html += "<td><img align='center' border='0' height='160' title='"+ ids.get(i).getName() + ", dist: "
+			        + ids.get(i).getDist() + "' src='data/img_full/"  + ids.get(i).getName()+ "/" + ids.get(i).getId() + "'></td>\n";
 		}
 		if (ids.size() != 0)
 			html += "</tr>\n";
