@@ -13,9 +13,17 @@
 	<servlet-name>recognition</servlet-name>
 	<servlet-class>servlets.RecognitionServlet</servlet-class>
   </servlet>
-	
+	<servlet>
+    <servlet-name>fileServlet</servlet-name>
+    <servlet-class>servlets.FileServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
-  	<servlet-name>recognition</servlet-name>
-  	<url-pattern>/recognise</url-pattern>
+  	 <servlet-name>recognition</servlet-name>
+  	 <url-pattern>/recognise</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>fileServlet</servlet-name>
+    <url-pattern>/data/*</url-pattern>
+  </servlet-mapping>
+
 </web-app>

@@ -126,7 +126,7 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 			res.get(i).setDist(distance);
 		}
 		Collections.sort(res);
-		res = res.subList(0, k-1);
+		res = res.subList(0, k > res.size() ? res.size() : k);
 		return res;
 	}
 }
