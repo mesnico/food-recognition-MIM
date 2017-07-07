@@ -25,5 +25,7 @@
     <servlet-name>fileServlet</servlet-name>
     <url-pattern>/data/*</url-pattern>
   </servlet-mapping>
-
+<listener>
+   <listener-class>servlets.Listener</listener-class>
+</listener>
 </web-app>
