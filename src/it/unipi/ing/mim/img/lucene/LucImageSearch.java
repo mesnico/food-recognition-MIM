@@ -41,7 +41,7 @@ public class LucImageSearch {
 		//Image Query File
 		File imgQuery = new File(Parameters.SRC_FOLDER, "apple_pie/63651.jpg");
 		
-		DNNExtractor extractor = new DNNExtractor();
+		DNNExtractor extractor = DNNExtractor.getInstance();
 		
 		float[] imgFeatures = extractor.extract(imgQuery, Parameters.DEEP_LAYER);
 		
@@ -58,7 +58,7 @@ public class LucImageSearch {
 public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{		
 		openIndex(Parameters.LUCENE_PATH);
 		
-		DNNExtractor extractor = new DNNExtractor();
+		DNNExtractor extractor = DNNExtractor.getInstance();
 		
 		float[] imgFeatures = extractor.extract(imgQuery, Parameters.DEEP_LAYER);
 		
@@ -68,7 +68,9 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 		//Output.toHTML(resLucene, Parameters.BASE_URI, Parameters.RESULTS_HTML_LUCENE);
 		
 		//Uncomment for the optional step
+		long starttime = System.currentTimeMillis();
 		List<ImgDescriptor> resReordered = reorder(query, resLucene, Parameters.K_REORDER);
+		System.out.println("reordering time: "+(System.currentTimeMillis() - starttime)+"ms");
 		//Output.toHTML(resReordered, Parameters.BASE_URI, Parameters.RESULTS_HTML_REORDERED);
 		
 		return resReordered;

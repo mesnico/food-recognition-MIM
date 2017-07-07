@@ -21,8 +21,17 @@ public class DNNExtractor {
 	private Mat meanImg;
 	private Net net;
 	private Size imgSize;
+	private static DNNExtractor instance = null;
 	
-	public DNNExtractor() {		
+	
+	public static DNNExtractor getInstance() {
+        if (instance == null) {
+            instance = new DNNExtractor();
+        }
+        return instance;
+    }
+	
+	private DNNExtractor() {		
 		//Create the importer of Caffe framework network
 		//HAHAHAHHAHAHAH
 		Importer importer = createCaffeImporter(new File(Parameters.DEEP_PROTO).getPath(), new File(Parameters.DEEP_MODEL).getPath());

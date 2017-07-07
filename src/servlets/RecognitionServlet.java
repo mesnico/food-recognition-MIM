@@ -91,8 +91,14 @@ public class RecognitionServlet extends HttpServlet {
               fi.write( file ) ;
               
               LucImageSearch l = new LucImageSearch(Parameters.PIVOTS_FILE, Parameters.TOP_K_QUERY);
+              long starttime = System.currentTimeMillis();
               List<ImgDescriptor> foundImages = l.recognizeImage(file);
+              System.out.println("overall recognize time: "+(System.currentTimeMillis() - starttime)+"ms");
+              
+              starttime = System.currentTimeMillis();
               String classification = KNNClassifier.classify(foundImages);
+              System.out.println("classification time: "+(System.currentTimeMillis() - starttime)+"ms");
+              
               String htmlResultTable = Output.generateHtmlResultsTable(foundImages, Parameters.BASE_URI);
               writer.write("<p>"+classification+"</p><h2>Most similar images: </h2>" + htmlResultTable);
            }

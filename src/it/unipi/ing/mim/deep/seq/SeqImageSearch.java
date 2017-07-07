@@ -24,7 +24,7 @@ public class SeqImageSearch {
 		//Image Query File
 		File img = new File(Parameters.SRC_FOLDER, "b402c97071eea022f2d8fd700eed04ad.jpg");
 		
-		DNNExtractor extractor = new DNNExtractor();
+		DNNExtractor extractor = DNNExtractor.getInstance();
 		
 		float[] features = extractor.extract(img, Parameters.DEEP_LAYER);
 		ImgDescriptor query = new ImgDescriptor(features, img.getName(), "");

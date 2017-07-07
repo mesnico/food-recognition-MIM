@@ -28,7 +28,7 @@ public class SeqImageStorage {
 		listf(imgFolder.toString(), filesArr);
 		File[] files = filesArr.toArray(new File[filesArr.size()]);
 		
-		DNNExtractor extractor = new DNNExtractor();
+		DNNExtractor extractor = DNNExtractor.getInstance();
 
 		for (int i = 0; i < files.length; i++) {
 			System.out.println(i + " - extracting " + files[i].getParentFile().getName());
