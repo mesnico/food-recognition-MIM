@@ -8,7 +8,7 @@ import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
 
 public class KNNClassifier {
-	private float precision;
+	
 	public static String classify(List<ImgDescriptor> ids){
 		float precision;
 		HashMap<String,Integer> resultMap=new HashMap<String,Integer>();
