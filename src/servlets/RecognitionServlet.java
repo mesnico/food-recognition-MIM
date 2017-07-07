@@ -37,10 +37,8 @@ public class RecognitionServlet extends HttpServlet {
 	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer=response.getWriter();
-        writer.write("<!DOCTYPE html>"+
-                            "<html lang='en'> <head> <meta charset='UTF-8'>"+
-                            "<title>Search results</title> </head>"+
-                            "<body> <h2>Best hypothesis for this image: </h2>");
+
+        writer.write("<h2>Best hypothesis for this image: </h2>");
         response.setStatus(200);
         
         //create the filePath if not exists
@@ -103,8 +101,7 @@ public class RecognitionServlet extends HttpServlet {
               writer.write("<p>"+classification+"</p><h2>Most similar images: </h2>" + htmlResultTable);
            }
         }
-        writer.write("<a href='index.html'>Clicca qui per tornare al pannello principale</a>"+
-                     "</body> </html>");
+
      }catch(Exception ex) {
          System.out.println(ex);
      }

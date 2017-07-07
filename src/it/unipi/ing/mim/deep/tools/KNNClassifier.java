@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
+import it.unipi.ing.mim.deep.Parameters;
 
 public class KNNClassifier {
+	private float precision;
 	public static String classify(List<ImgDescriptor> ids){
+		float precision;
 		HashMap<String,Integer> resultMap=new HashMap<String,Integer>();
 		String label;
 		int value;
@@ -20,7 +23,9 @@ public class KNNClassifier {
 			resultMap.replace(label,value+1);
 		}
 		predictedClass=Collections.max(resultMap.entrySet(), (res1, res2) -> res1.getValue() - res2.getValue()).getKey();
-		return predictedClass;
+		value = resultMap.get(predictedClass);
+		precision = ((float)value/(float)Parameters.K_REORDER)*100; 
+		return predictedClass + " at: " + precision + "%";
 		
 	}
 

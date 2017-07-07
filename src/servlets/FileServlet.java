@@ -13,11 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * The File servlet for serving from absolute path.
- * @author BalusC
- * @link http://balusc.blogspot.com/2007/07/fileservlet.html
- */
 public class FileServlet extends HttpServlet {
 
     // Constants ----------------------------------------------------------------------------------
