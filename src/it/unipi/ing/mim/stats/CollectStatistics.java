@@ -40,7 +40,8 @@ public class CollectStatistics {
 	            
 	            //record statistics
 	            csvWriter.append(
-	            		knn.isClassificationOk(), 
+	            		imgFile.getName(),
+	            		knn.isClassificationOk(imgFile.getParentFile().getName()), 
 	            		knn.getPrecision(), 
 	            		knn.getRecall()
 	            	);

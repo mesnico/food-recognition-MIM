@@ -11,7 +11,7 @@ public class CsvFileWriter {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "classificationOk,precision,recall";
+	private static final String FILE_HEADER = "fileName,classificationOk,precision,recall";
 	
 	FileWriter fileWriter = null;
 	
@@ -32,8 +32,11 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void append(boolean ok, float precision, float recall){
+	public void append(String fileName, boolean ok, float precision, float recall){
 		try{
+			fileWriter.append(String.valueOf(fileName));
+			fileWriter.append(COMMA_DELIMITER);
+			
 			fileWriter.append(String.valueOf(ok));
 			fileWriter.append(COMMA_DELIMITER);
 			

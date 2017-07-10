@@ -55,7 +55,7 @@ public class KNNClassifier {
 		}
 		avgPrecision = precision/relevant;
 		
-		return this.predictedClass + " at: " + precision + "%" + ", avg precision:" + avgPrecision;
+		return this.predictedClass + " at: " + this.precision + "%" + ", avg precision:" + avgPrecision;
 	}
 
 }
