@@ -74,7 +74,7 @@ public class RecognitionServlet extends HttpServlet {
         		// Process the uploaded file items
         		Iterator i = fileItems.iterator();
         		String urlString;
-
+        		
         		while ( i.hasNext () ){
         			FileItem fi = (FileItem)i.next();
         			System.out.println(fi);
@@ -131,7 +131,6 @@ public class RecognitionServlet extends HttpServlet {
              long starttime = System.currentTimeMillis();
              List<ImgDescriptor> foundImages = l.recognizeImage(file);
              System.out.println("overall recognize time: "+(System.currentTimeMillis() - starttime)+"ms");
-              
              starttime = System.currentTimeMillis();
              String classification = KNNClassifier.classify(foundImages);
              System.out.println("classification time: "+(System.currentTimeMillis() - starttime)+"ms");
