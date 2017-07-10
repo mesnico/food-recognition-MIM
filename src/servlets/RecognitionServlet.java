@@ -132,7 +132,8 @@ public class RecognitionServlet extends HttpServlet {
              List<ImgDescriptor> foundImages = l.recognizeImage(file);
              System.out.println("overall recognize time: "+(System.currentTimeMillis() - starttime)+"ms");
              starttime = System.currentTimeMillis();
-             String classification = KNNClassifier.classify(foundImages);
+             KNNClassifier classifier = new KNNClassifier();
+             String classification = classifier.classify(foundImages);
              System.out.println("classification time: "+(System.currentTimeMillis() - starttime)+"ms");
               
              String htmlResultTable = Output.generateHtmlResultsTable(foundImages, Parameters.BASE_URI);
