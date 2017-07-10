@@ -2,10 +2,10 @@ function overrideSubmit(){
 var frm = $('#recognitionForm');
 
        frm.submit(function (e) {
+    	   
 
            e.preventDefault();
            var formData = new FormData(this);
-           
            $.ajax({
                type: frm.attr('method'),
                url: frm.attr('action'),
