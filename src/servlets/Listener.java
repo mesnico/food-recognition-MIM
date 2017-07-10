@@ -17,4 +17,4 @@ public class Listener implements javax.servlet.ServletContextListener {
 		// TODO Auto-generated method stub
 		DNNExtractor.getInstance();
 	}
-	}
+}
