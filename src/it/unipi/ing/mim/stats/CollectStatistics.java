@@ -11,7 +11,7 @@ import it.unipi.ing.mim.img.lucene.LucImageSearch;
 
 public class CollectStatistics {
 	//directory containing all the images used for testing the system
-	private static final String PROBE_DIRECTORY = "data/img_full";
+	private static final String PROBE_DIRECTORY = "data/test";
 	private static final String STATS_DIRECTORY = "stats/";
 	
 	public static void main(String[] args) throws Exception{
@@ -35,7 +35,7 @@ public class CollectStatistics {
 	            List<ImgDescriptor> foundImages = l.recognizeImage(imgFile);
 	            
 	            KNNClassifier knn = new KNNClassifier();
-	            String classification = knn.classify(foundImages);
+	            String classification = knn.classifyTest(foundImages,imgFile.getParentFile().getName());
 	            System.out.println("["+imgFolder.getName()+"]: ("+count+"/"+imgFiles.length+") - overall search time for "+imgFile.getName()+": "+(System.currentTimeMillis() - starttime)+"ms");
 	            
 	            //record statistics

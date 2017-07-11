@@ -9,11 +9,11 @@ import it.unipi.ing.mim.deep.Parameters;
 
 public class KNNClassifier {
 	
-	private float precision, recall;
+	private float classificationConfidence,queryPrecision, recall;
 	private String predictedClass;
 	
 	public float getPrecision() {
-		return precision;
+		return queryPrecision;
 	}
 
 	public float getRecall() {
@@ -37,9 +37,7 @@ public class KNNClassifier {
 		}
 		this.predictedClass=Collections.max(resultMap.entrySet(), (res1, res2) -> res1.getValue() - res2.getValue()).getKey();
 		value = resultMap.get(this.predictedClass);
-		this.precision = ((float)value/(float)Parameters.K_REORDER)*100;
-		//TODO
-		this.recall = ((float)value/(float)Parameters.K_REORDER)*100;
+		this.classificationConfidence = ((float)value/(float)Parameters.K_REORDER)*100;
 		//Average precision
 		float avgPrecision=0, precision = 0;
 		float relevant = 0;
@@ -55,7 +53,31 @@ public class KNNClassifier {
 		}
 		avgPrecision = precision/relevant;
 		
-		return this.predictedClass + " at: " + this.precision + "%" + ", avg precision:" + avgPrecision;
+		return this.predictedClass + " at: " + this.classificationConfidence + "%" + ", avg precision:" + avgPrecision;
+	}
+	
+	public String classifyTest(List<ImgDescriptor> ids,String queryClass){
+		HashMap<String,Integer> resultMap=new HashMap<String,Integer>();
+		String label;
+		int value;
+		for(ImgDescriptor descriptor : ids){
+			label=descriptor.getName();
+			if(!resultMap.containsKey(label))
+				resultMap.put(descriptor.getName(),0);
+			value=resultMap.get(label);
+			resultMap.replace(label,value+1);
+		}
+		this.predictedClass=Collections.max(resultMap.entrySet(), (res1, res2) -> res1.getValue() - res2.getValue()).getKey();
+		value = resultMap.get(this.predictedClass);
+		int count=0;
+		for(ImgDescriptor descriptor : ids){
+			if(descriptor.getName().equals(queryClass))
+				count++;
+		}
+		this.queryPrecision=((float)count/(float)30)*100;
+		this.recall=((float)count/(float)30)*100;
+		
+		return this.predictedClass ; 
 	}
 
 }

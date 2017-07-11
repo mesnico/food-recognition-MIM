@@ -11,7 +11,7 @@ public class CsvFileWriter {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "fileName,classificationOk,precision,recall";
+	private static final String FILE_HEADER = "fileName,classificationOk,precision,recall,avgPrecision";
 	
 	FileWriter fileWriter = null;
 	
