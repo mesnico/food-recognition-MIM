@@ -114,13 +114,11 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 				imgD.setDist(hits.scoreDocs[i].score);
 				res.add(imgD);
 			}
-			//for the optional step get the ImgDescriptor objects stored in Lucene
 		return res;
 	}
 	
 	//TODO
 	public List<ImgDescriptor> reorder(ImgDescriptor queryF, List<ImgDescriptor> res, int k) throws IOException, ClassNotFoundException {
-		//Optional Step!!!
 		//LOOP
 		//for each result evaluate the distance with the query, call  setDist to set the distance, then sort the results
 		for(int i = 0; i < res.size(); i++){
