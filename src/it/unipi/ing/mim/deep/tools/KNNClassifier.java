@@ -9,7 +9,7 @@ import it.unipi.ing.mim.deep.Parameters;
 
 public class KNNClassifier {
 	
-	private float classificationConfidence,queryPrecision, recall;
+	private float classificationConfidence,queryPrecision, recall,avgPrecision;
 	private String predictedClass;
 	
 	public float getPrecision() {
@@ -18,6 +18,15 @@ public class KNNClassifier {
 
 	public float getRecall() {
 		return recall;
+	}
+	
+	public float getConfidence(){
+		return classificationConfidence;
+		
+	}
+	
+	public float getAvgPrecision(){
+		return avgPrecision;
 	}
 	
 	public boolean isClassificationOk(String queryClass) {
@@ -38,22 +47,8 @@ public class KNNClassifier {
 		this.predictedClass=Collections.max(resultMap.entrySet(), (res1, res2) -> res1.getValue() - res2.getValue()).getKey();
 		value = resultMap.get(this.predictedClass);
 		this.classificationConfidence = ((float)value/(float)Parameters.K_REORDER)*100;
-		//Average precision
-		float avgPrecision=0, precision = 0;
-		float relevant = 0;
-		float num = 1;
-		for(ImgDescriptor descriptor : ids){
-			if(this.predictedClass.toString().equals(descriptor.getName().toString())){
-				relevant++;
-				precision += (relevant/num);
-				num++;
-			}
-			else
-				num++;
-		}
-		avgPrecision = precision/relevant;
 		
-		return this.predictedClass + " at: " + this.classificationConfidence + "%" + ", avg precision:" + avgPrecision;
+		return this.predictedClass + " with confidence: " + this.classificationConfidence + "%" ;
 	}
 	
 	public String classifyTest(List<ImgDescriptor> ids,String queryClass){
@@ -74,10 +69,23 @@ public class KNNClassifier {
 			if(descriptor.getName().equals(queryClass))
 				count++;
 		}
-		this.queryPrecision=((float)count/(float)30)*100;
-		this.recall=((float)count/(float)30)*100;
+		float precision = 0;
+		float relevant = 0;
+		float num = 1;
+		for(ImgDescriptor descriptor : ids){
+			if(queryClass.equals(descriptor.getName().toString())){
+				relevant++;
+				precision += (relevant/num);
+				num++;
+			}
+			else
+				num++;
+		}
+		this.avgPrecision = precision/relevant;
+		this.queryPrecision=((float)count/(float)Parameters.K_REORDER)*100;
+		this.recall=((float)count/(float)Parameters.K_REORDER)*100;
 		
-		return this.predictedClass ; 
+		return this.predictedClass; 
 	}
 
 }
