@@ -6,6 +6,7 @@ import it.unipi.ing.mim.deep.Parameters;
 import it.unipi.ing.mim.deep.tools.FeaturesStorage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,21 @@ public class SeqImageStorage {
 	}
 	
 	private List<ImgDescriptor> extractFeatures(File imgFolder){
-		List<ImgDescriptor>  descs = new ArrayList<ImgDescriptor>();
+		List<ImgDescriptor> descs;
+		int i;
 
+		try{
+		descs = FeaturesStorage.load(Parameters.STORAGE_FILE);
+		i = descs.size();
+		System.out.println("descriptor:" + descs.size()
+				+ " filename:"+ descs.get(descs.size()-1).getId());
+		}
+		catch (Exception io){
+			descs = new ArrayList<ImgDescriptor>();
+			i = 0;
+			System.out.println("Exception" + io);
+		}
+		
 		//File[] files = imgFolder.listFiles();
 		ArrayList<File> filesArr = new ArrayList<File>();
 		listf(imgFolder.toString(), filesArr);
@@ -30,14 +44,16 @@ public class SeqImageStorage {
 		
 		DNNExtractor extractor = DNNExtractor.getInstance();
 
-		for (int i = 0; i < files.length; i++) {
-			System.out.println(i + " - extracting " + files[i].getParentFile().getName());
+		for (; i < files.length; i++) {
+			System.out.println(i + " - extracting " + files[i].getName());
 			try {
 				long time = -System.currentTimeMillis();
 				float[] features = extractor.extract(files[i], Parameters.DEEP_LAYER);
 				time += System.currentTimeMillis();
 				System.out.println(time);
 				descs.add(new ImgDescriptor(features, files[i].getName(), files[i].getParentFile().getName()));
+				if(i%200 == 0)
+					FeaturesStorage.store(descs, Parameters.STORAGE_FILE);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

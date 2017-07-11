@@ -5,19 +5,19 @@ import java.io.File;
 public class Parameters {
 	
 	//DEEP parameters
-	public static final String DEEP_PROTO = "data/caffe/train_val.prototxt";
-	public static final String DEEP_MODEL = "data/caffe/bvlc_reference_caffenet.caffemodel";
+	public static final String DEEP_PROTO = "data/caffe/VGG_ILSVRC_16_layers_deploy.prototxt";
+	public static final String DEEP_MODEL = "data/caffe/VGG_ILSVRC_16_layers.caffemodel";
 	public static final String DEEP_MEAN_IMG = "data/caffe/meanImage.png";
 	
 	public static final String DEEP_LAYER = "fc7";
-	public static final int IMG_WIDTH = 227;
-	public static final int IMG_HEIGHT = 227;
+	public static final int IMG_WIDTH = 224;
+	public static final int IMG_HEIGHT = 224;
 	
 	//Image Source Folder
 	public static final File SRC_FOLDER = new File("data/img_full");
 	
 	//Features Storage File
-	public static final File STORAGE_FILE = new File("data/deep.seq.dat");
+	public static final File STORAGE_FILE = new File("data/deep.seq.vgg.dat");
 	
 	//k-Nearest Neighbors returned by Lucene
 	public static final int K = 100;
@@ -26,7 +26,7 @@ public class Parameters {
 	public static final int K_REORDER = 30;
 	
 	//Pivots File
-	public static final File  PIVOTS_FILE = new File("out/deep.pivots.dat");
+	public static final File  PIVOTS_FILE = new File("out/deep.pivots.vgg.dat");
 	
 	//Number Of Pivots
 	public static final int NUM_PIVOTS = 100;
@@ -38,7 +38,7 @@ public class Parameters {
 	public static final int TOP_K_QUERY = 10;
 	
 	//Lucene Index
-	public static final String  LUCENE_PATH = "out/"  + "Lucene_Deep";
+	public static final String  LUCENE_PATH = "out/"  + "Lucene_Deep_vgg";
 	
 	//HTML Output Parameters
 	public static final  String BASE_URI = "file:///" + Parameters.SRC_FOLDER.getAbsolutePath() + "/";
