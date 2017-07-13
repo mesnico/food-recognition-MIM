@@ -12,6 +12,7 @@ public class CsvFileWriter {
 	
 	//CSV file header
 	private static final String FILE_HEADER = "fileName;classificationOk;precision;recall;avgPrecision";
+	private static final String FILE_FINAL_HEADER = "className;classificationPercentage;meanPrecision";
 	
 	FileWriter fileWriter = null;
 	
@@ -64,19 +65,32 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void appendFinalStats(float classificationPercentage,float meanPrecision){
+	public void appendFinalHeader(){
 		try{
-			fileWriter.append("% Classification");
-			fileWriter.append(COMMA_DELIMITER);
-			
-			fileWriter.append("Mean Precision");
+			//Write the CSV file header
+			fileWriter.append(FILE_FINAL_HEADER.toString());
+		
+			//Add a new line separator after the header
 			fileWriter.append(NEW_LINE_SEPARATOR);
+		} catch(IOException e){
+			System.out.println("Error appending the header");
+			e.printStackTrace();
+			close();
+		}
+	}
+	
+	public void appendFinalStats(String className, float classificationPercentage,float meanPrecision){
+		try{
+			fileWriter.append(className);
+			fileWriter.append(COMMA_DELIMITER);
 			
 			fileWriter.append(String.valueOf(classificationPercentage));
 			fileWriter.append(COMMA_DELIMITER);
 			
 			fileWriter.append(String.valueOf(meanPrecision));
 			fileWriter.append(NEW_LINE_SEPARATOR);
+			
+			fileWriter.flush();
 		} catch(IOException e){
 			System.out.println("Error writing stats on file ");
 			e.printStackTrace();

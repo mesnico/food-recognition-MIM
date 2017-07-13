@@ -73,7 +73,7 @@ public class KNNClassifier {
 		float relevant = 0;
 		float num = 1;
 		for(ImgDescriptor descriptor : ids){
-			if(queryClass.equals(descriptor.getName().toString())){
+			if(queryClass.equals(descriptor.getName())){
 				relevant++;
 				precision += (relevant/num);
 				num++;
