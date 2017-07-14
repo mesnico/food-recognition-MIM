@@ -14,7 +14,7 @@ public class CsvFileWriter {
 	private static final String CONFUSION_MATRIX_HEADER = "fileName;targetClass;actualClass";
 	private static final String CLASSIFICATION_SUMMARY_HEADER = "className;classificationPercentage";
 	private static final String MAP_HEADER = "className;meanAveragePrecision";
-	private static final String PRECISIONRECALL_HEADER = "k;precision;recall";
+	private static final String PRECISIONRECALL_HEADER = "k;recall;precision";
 	
 	FileWriter fileWriter = null;
 	
@@ -133,15 +133,15 @@ public class CsvFileWriter {
 		}
 	}
 
-	public void appendPrecisionRecall(int k, float precision, float recall) {
+	public void appendPrecisionRecall(int k, float recall, float precision) {
 		try{
 			fileWriter.append(String.valueOf(k));
 			fileWriter.append(COMMA_DELIMITER);
 			
-			fileWriter.append(String.valueOf(precision));
+			fileWriter.append(String.valueOf(recall));
 			fileWriter.append(COMMA_DELIMITER);
 			
-			fileWriter.append(String.valueOf(recall));
+			fileWriter.append(String.valueOf(precision));
 			fileWriter.append(NEW_LINE_SEPARATOR);
 			
 			fileWriter.flush();

@@ -100,11 +100,12 @@ public class CollectMAPStatistics {
 		
 		//calculates overall precision and recall for each k
 		CsvFileWriter csvPrecRecWriter=new CsvFileWriter(globalDir.getAbsolutePath() +"/PrecisionRecallStats.csv");
+		csvPrecRecWriter.appendPrecisionRecallHeader();
 		
 		for(int i=0;i<Parameters.K;i++){
 			precision[i]=precision[i]/(float)TOTAL_IMAGE_TESTED;
 			recall[i]=recall[i]/(float)TOTAL_IMAGE_TESTED;
-			csvPrecRecWriter.appendPrecisionRecall((i+1),precision[i],recall[i]);
+			csvPrecRecWriter.appendPrecisionRecall((i+1),recall[i],precision[i]);
 		}
 		
 	}
