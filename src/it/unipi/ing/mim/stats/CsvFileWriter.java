@@ -11,8 +11,8 @@ public class CsvFileWriter {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "fileName;classificationOk;precision;recall;avgPrecision";
-	private static final String FILE_FINAL_HEADER = "className;classificationPercentage;meanPrecision";
+	private static final String FILE_HEADER = "fileName;targetClass;actualClass;avgPrecision";
+	private static final String FILE_FINAL_HEADER = "className;classificationPercentage;meanAveragePrecision";
 	
 	FileWriter fileWriter = null;
 	
@@ -42,18 +42,15 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void append(String fileName, boolean ok, float precision, float recall,float avgPrecision){
+	public void append(String fileName, int targetClass, int actualClass, float avgPrecision){
 		try{
 			fileWriter.append(String.valueOf(fileName));
 			fileWriter.append(COMMA_DELIMITER);
 			
-			fileWriter.append(String.valueOf(ok));
+			fileWriter.append(String.valueOf(targetClass));
 			fileWriter.append(COMMA_DELIMITER);
 			
-			fileWriter.append(String.valueOf(precision));
-			fileWriter.append(COMMA_DELIMITER);
-			
-			fileWriter.append(String.valueOf(recall));
+			fileWriter.append(String.valueOf(actualClass));
 			fileWriter.append(COMMA_DELIMITER);
 			
 			fileWriter.append(String.valueOf(avgPrecision));
@@ -79,7 +76,7 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void appendFinalStats(String className, float classificationPercentage,float meanPrecision){
+	public void appendFinalStats(String className, float classificationPercentage,float meanAveragePrecision){
 		try{
 			fileWriter.append(className);
 			fileWriter.append(COMMA_DELIMITER);
@@ -87,7 +84,7 @@ public class CsvFileWriter {
 			fileWriter.append(String.valueOf(classificationPercentage));
 			fileWriter.append(COMMA_DELIMITER);
 			
-			fileWriter.append(String.valueOf(meanPrecision));
+			fileWriter.append(String.valueOf(meanAveragePrecision));
 			fileWriter.append(NEW_LINE_SEPARATOR);
 			
 			fileWriter.flush();

@@ -133,11 +133,15 @@ public class RecognitionServlet extends HttpServlet {
              System.out.println("overall recognize time: "+(System.currentTimeMillis() - starttime)+"ms");
              starttime = System.currentTimeMillis();
              KNNClassifier classifier = new KNNClassifier();
-             String classification = classifier.classify(foundImages);
+             String classification1NN = classifier.classify(foundImages, 1);
+             String classification5NN = classifier.classify(foundImages, 5);
+             String classification10NN = classifier.classify(foundImages, 10);
+             String classification15NN = classifier.classify(foundImages, 15);
              System.out.println("classification time: "+(System.currentTimeMillis() - starttime)+"ms");
               
              String htmlResultTable = Output.generateHtmlResultsTable(foundImages, Parameters.BASE_URI);
-             writer.write("<p>"+classification+"</p><h2>Most similar images: </h2>" + htmlResultTable);
+             writer.write("<p>classification1NN: "+classification1NN+"</p><p>classification5NN :"+classification5NN+"</p>"
+             		+ "<p>classification10NN: "+classification10NN+"</p><p>classification15NN: "+classification15NN+"</p><h2>Most similar images: </h2>" + htmlResultTable);
 
      }catch(Exception ex) {
          System.out.println(ex);

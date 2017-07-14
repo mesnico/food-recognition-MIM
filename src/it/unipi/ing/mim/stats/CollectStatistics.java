@@ -2,6 +2,7 @@ package it.unipi.ing.mim.stats;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
@@ -11,7 +12,7 @@ import it.unipi.ing.mim.img.lucene.LucImageSearch;
 
 public class CollectStatistics {
 	//directory containing all the images used for testing the system
-	private static final String PROBE_DIRECTORY = "data/img_full";
+	private static final String PROBE_DIRECTORY = "data/test";
 	private static final String STATS_DIRECTORY = "stats/";
 	//private static final int NUM_CLASSES=101;
 	
@@ -20,12 +21,20 @@ public class CollectStatistics {
 		File srcFolder = new File(PROBE_DIRECTORY);
 		File[] folders = srcFolder.listFiles();
 		int numClasses = folders.length;
+		//Data structure to save Class and Id 
+		HashMap<String,Integer> resultMap=new HashMap<String,Integer>();
+		String label;
+		int value=1;
+		for(File folderName : folders){
+			label=folderName.getName();
+			resultMap.put(label,value++);
+		}
 		
 		//create a directory with the current timestamp
 		File currentDir = new File(STATS_DIRECTORY +"/"+ System.currentTimeMillis());
 		currentDir.mkdirs();
 		float totalClassificationPercentageSum=0;
-		float totalPrecisionSum=0;
+		float totalMeanAveragePrecisionSum=0;
 		File globalDir = new File(currentDir.getAbsolutePath() + "/Global");
         if (!globalDir.exists()){
         	globalDir.mkdir();
@@ -37,6 +46,7 @@ public class CollectStatistics {
         
 		for (File imgFolder: folders) {
 			File[] imgFiles = imgFolder.listFiles();
+			
 			/*File dir = new File(currentDir.getAbsolutePath() + "/"+ imgFolder.getName());
 		        if (!dir.exists()){
 		        	dir.mkdir();
@@ -46,7 +56,7 @@ public class CollectStatistics {
 			csvPerClassWriter.appendHeader();
 			int count=1;
 			float correctlyClassified=0;
-			float precisionSum=0;
+			float averagePrecisionSum=0;
 			for (File imgFile: imgFiles) {
 				//Collect statistics for the current probe image
 				long starttime = System.currentTimeMillis();
@@ -54,18 +64,20 @@ public class CollectStatistics {
 	            List<ImgDescriptor> foundImages = l.recognizeImage(imgFile);
 	            
 	            KNNClassifier knn = new KNNClassifier();
-	            String classification = knn.classifyTest(foundImages,imgFile.getParentFile().getName());
+	            String classification = knn.classifyTest(foundImages,imgFile.getParentFile().getName(), 1);
+	            int actualClassId = resultMap.get(classification);
+	            int targetClassId = resultMap.get(imgFolder.getName());
 	            System.out.println("["+imgFolder.getName()+"]: ("+count+"/"+imgFiles.length+") - overall search time for "+imgFile.getName()+": "+(System.currentTimeMillis() - starttime)+"ms");
 	            boolean correctClassification=knn.isClassificationOk(imgFile.getParentFile().getName());
 	            //record statistics
+	            
 	            csvPerClassWriter.append(
 	            		imgFile.getName(),
-	            		correctClassification, 
-	            		knn.getPrecision(), 
-	            		knn.getRecall(),
+	            		targetClassId,
+	            		actualClassId,
 	            		knn.getAvgPrecision()
 	            	);
-	            precisionSum+=knn.getPrecision();
+	            averagePrecisionSum+=knn.getAvgPrecision();
 	            if(correctClassification)
 	            	correctlyClassified++;
 	            count++;
@@ -74,13 +86,13 @@ public class CollectStatistics {
 			
 			//calculates the overall statistics for the current class
 			float classificationPercentage=correctlyClassified/(float)imgFiles.length;
-			float meanPrecision=precisionSum/(float)imgFiles.length;
+			float meanAveragePrecision=averagePrecisionSum/(float)imgFiles.length;
 			
 			//outputs the overall class statistics on file
-			csvAllClassesWriter.appendFinalStats(imgFolder.getName(),classificationPercentage, meanPrecision);
+			csvAllClassesWriter.appendFinalStats(imgFolder.getName(),classificationPercentage, meanAveragePrecision);
 			
 			totalClassificationPercentageSum+=classificationPercentage;
-			totalPrecisionSum+=meanPrecision;
+			totalMeanAveragePrecisionSum+=meanAveragePrecision;
 	
 		}
 		csvAllClassesWriter.close();
@@ -88,8 +100,8 @@ public class CollectStatistics {
 		//writes the global stats
 		CsvFileWriter csvWriterGlobal=new CsvFileWriter(globalDir.getAbsolutePath() +"/globalStats.csv");
 		float totalClassificationPercentage=totalClassificationPercentageSum/numClasses;
-		float totalMeanPrecision=totalPrecisionSum/numClasses;
-		csvWriterGlobal.appendFinalStats("global",totalClassificationPercentage, totalMeanPrecision);
+		float totalMeanAveragePrecision=totalMeanAveragePrecisionSum/numClasses;
+		csvWriterGlobal.appendFinalStats("global",totalClassificationPercentage, totalMeanAveragePrecision);
 		csvWriterGlobal.close();
 	}
 }
