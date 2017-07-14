@@ -32,10 +32,10 @@ public class Parameters {
 	public static final int NUM_PIVOTS = 100;
 
 	//Top K pivots For Indexing
-	public static final int TOP_K_IDX = 10;
+	public static final int TOP_K_IDX = 50;
 	
 	//Top K pivots For Searching
-	public static final int TOP_K_QUERY = 10;
+	public static final int TOP_K_QUERY = 44;
 	
 	//Lucene Index
 	public static final String  LUCENE_PATH = "out/"  +"Lucene_Deep" ;   // PER VGG : "Lucene_Deep_vgg";  

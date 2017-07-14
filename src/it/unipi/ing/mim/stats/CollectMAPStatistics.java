@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
+import it.unipi.ing.mim.deep.seq.SeqImageSearch;
 import it.unipi.ing.mim.img.lucene.LucImageSearch;
 
 public class CollectMAPStatistics {
@@ -42,14 +43,10 @@ public class CollectMAPStatistics {
         csvMAPWriter.appendMAPHeader();
         
 		for (File imgFolder: folders) {
-			if(!imgFolder.getName().equals("pizza"))
-				continue;
+			/*if(!imgFolder.getName().equals("pizza"))
+				continue;*/
 			File[] imgFiles = imgFolder.listFiles();
 			
-			/*File dir = new File(currentDir.getAbsolutePath() + "/"+ imgFolder.getName());
-		        if (!dir.exists()){
-		        	dir.mkdir();
-		        }*/
 			//initialize the writer to write the measurements for the single class
 			float averagePrecisionSum=0;
 			int count=1;
@@ -70,32 +67,31 @@ public class CollectMAPStatistics {
 	   				if(imgFolder.getName().equals(descriptor.getName())){
 	   					relevant++;
 	   					precisionSum += (relevant/num);
-	   					precision[num-1]+=relevant/num;
-	   					recall[num-1]+=relevant/1000;
+	   					precision[(num-1)]+=relevant/num;
+	   					recall[(num-1)]+=relevant/1000;
 		   				//System.out.println("precision per k="+num+" : " + relevant/num);
 		   				//System.out.println("Recall per k="+num+" : " + relevant/1000);
 	   					num++;
 		   			}
 		   			else{
-		   				precision[num-1]+=relevant/num;
-		   				recall[num-1]+=relevant/1000;
+		   				precision[(num-1)]+=relevant/num;
+		   				recall[(num-1)]+=relevant/1000;
 		   				//System.out.println("precision per k="+num+" : "+relevant/num);
 		   				//System.out.println("Recall per k="+num+" : " + relevant/1000);
 		   				num++;
 		   			}
 	   			}
 		   			File classFolder=new File(Parameters.SRC_FOLDER.getAbsolutePath()+"/"+imgFolder.getName());
-		   			System.out.println(classFolder.listFiles().length);
 		   			float averagePrecision=precisionSum/classFolder.listFiles().length;
 		   			System.out.flush();
 		   			System.out.println(averagePrecision);
 		            averagePrecisionSum+=averagePrecision;
-		            TOTAL_IMAGE_TESTED+=imgFiles.length;
+		            TOTAL_IMAGE_TESTED++;
 		            count++;
 	   		}
             
 			//calculates the MAP for the current class
-			float meanAveragePrecision=averagePrecisionSum/(float)imgFiles.length;
+			float meanAveragePrecision=averagePrecisionSum/(float)1;
 			
 			//outputs the MAP on file
 			csvMAPWriter.appendMAPStats(imgFolder.getName(),meanAveragePrecision);
@@ -105,10 +101,10 @@ public class CollectMAPStatistics {
 		//calculates overall precision and recall for each k
 		CsvFileWriter csvPrecRecWriter=new CsvFileWriter(globalDir.getAbsolutePath() +"/PrecisionRecallStats.csv");
 		
-		for(int i=0;i<precision.length;i++){
+		for(int i=0;i<Parameters.K;i++){
 			precision[i]=precision[i]/(float)TOTAL_IMAGE_TESTED;
 			recall[i]=recall[i]/(float)TOTAL_IMAGE_TESTED;
-			csvPrecRecWriter.appendPrecisionRecall(i,precision[i],recall[i]);
+			csvPrecRecWriter.appendPrecisionRecall((i+1),precision[i],recall[i]);
 		}
 		
 	}
