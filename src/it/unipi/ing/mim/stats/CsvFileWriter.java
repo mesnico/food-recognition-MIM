@@ -11,8 +11,8 @@ public class CsvFileWriter {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 	
 	//CSV file header
-	private static final String FILE_HEADER = "fileName;targetClass;actualClass;avgPrecision";
-	private static final String FILE_FINAL_HEADER = "className;classificationPercentage;meanAveragePrecision";
+	private static final String CONFUSION_MATRIX_HEADER = "fileName;targetClass;actualClass";
+	private static final String CLASSIFICATION_SUMMARY_HEADER = "className;classificationPercentage";
 	
 	FileWriter fileWriter = null;
 	
@@ -28,10 +28,10 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void appendHeader(){
+	public void appendClassificationSummaryHeader(){
 		try{
 			//Write the CSV file header
-			fileWriter.append(FILE_HEADER.toString());
+			fileWriter.append(CLASSIFICATION_SUMMARY_HEADER.toString());
 		
 			//Add a new line separator after the header
 			fileWriter.append(NEW_LINE_SEPARATOR);
@@ -42,7 +42,7 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void append(String fileName, int targetClass, int actualClass, float avgPrecision){
+	public void appendConfusionMatrix(String fileName, int targetClass, int actualClass){
 		try{
 			fileWriter.append(String.valueOf(fileName));
 			fileWriter.append(COMMA_DELIMITER);
@@ -51,10 +51,9 @@ public class CsvFileWriter {
 			fileWriter.append(COMMA_DELIMITER);
 			
 			fileWriter.append(String.valueOf(actualClass));
-			fileWriter.append(COMMA_DELIMITER);
-			
-			fileWriter.append(String.valueOf(avgPrecision));
 			fileWriter.append(NEW_LINE_SEPARATOR);
+			
+			fileWriter.flush();
 		} catch(IOException e){
 			System.out.println("Error writing stats on file ");
 			e.printStackTrace();
@@ -62,10 +61,10 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void appendFinalHeader(){
+	public void appendConfusionMatrixHeader(){
 		try{
 			//Write the CSV file header
-			fileWriter.append(FILE_FINAL_HEADER.toString());
+			fileWriter.append(CONFUSION_MATRIX_HEADER.toString());
 		
 			//Add a new line separator after the header
 			fileWriter.append(NEW_LINE_SEPARATOR);
@@ -76,15 +75,12 @@ public class CsvFileWriter {
 		}
 	}
 	
-	public void appendFinalStats(String className, float classificationPercentage,float meanAveragePrecision){
+	public void appendClassificationSummary(String className, float classificationPercentage){
 		try{
 			fileWriter.append(className);
 			fileWriter.append(COMMA_DELIMITER);
 			
 			fileWriter.append(String.valueOf(classificationPercentage));
-			fileWriter.append(COMMA_DELIMITER);
-			
-			fileWriter.append(String.valueOf(meanAveragePrecision));
 			fileWriter.append(NEW_LINE_SEPARATOR);
 			
 			fileWriter.flush();

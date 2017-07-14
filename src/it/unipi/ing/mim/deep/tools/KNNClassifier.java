@@ -87,7 +87,7 @@ public class KNNClassifier {
 			else
 				num++;
 		}
-		File file = new File(Parameters.SRC_FOLDER.getName() + queryClass);
+		File file = new File(Parameters.SRC_FOLDER.getAbsolutePath() + "/"+ queryClass);
 		this.avgPrecision = precision/(float)file.listFiles().length;
 		this.queryPrecision=((float)count/(float)Parameters.K_REORDER)*100;
 		this.recall=((float)count/(float)Parameters.K_REORDER)*100;
