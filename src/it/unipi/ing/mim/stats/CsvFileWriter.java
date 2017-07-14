@@ -13,6 +13,8 @@ public class CsvFileWriter {
 	//CSV file header
 	private static final String CONFUSION_MATRIX_HEADER = "fileName;targetClass;actualClass";
 	private static final String CLASSIFICATION_SUMMARY_HEADER = "className;classificationPercentage";
+	private static final String MAP_HEADER = "className;meanAveragePrecision";
+	private static final String PRECISIONRECALL_HEADER = "k;precision;recall";
 	
 	FileWriter fileWriter = null;
 	
@@ -91,6 +93,36 @@ public class CsvFileWriter {
 		}
 	}
 	
+	public void appendMAPStats(String className,float meanAveragePrecision){
+		try{
+			fileWriter.append(className);
+			fileWriter.append(COMMA_DELIMITER);
+			
+			fileWriter.append(String.valueOf(meanAveragePrecision));
+			fileWriter.append(NEW_LINE_SEPARATOR);
+			
+			fileWriter.flush();
+		} catch(IOException e){
+			System.out.println("Error writing stats on file ");
+			e.printStackTrace();
+			close();
+		}
+	}
+	
+	public void appendMAPHeader(){
+		try{
+			//Write the CSV file header
+			fileWriter.append(MAP_HEADER.toString());
+		
+			//Add a new line separator after the header
+			fileWriter.append(NEW_LINE_SEPARATOR);
+		} catch(IOException e){
+			System.out.println("Error appending the header");
+			e.printStackTrace();
+			close();
+		}
+	}
+	
 	public void close(){
 		try {
 			fileWriter.flush();
@@ -100,5 +132,39 @@ public class CsvFileWriter {
             e.printStackTrace();
 		}
 	}
+
+	public void appendPrecisionRecall(int k, float precision, float recall) {
+		try{
+			fileWriter.append(String.valueOf(k));
+			fileWriter.append(COMMA_DELIMITER);
+			
+			fileWriter.append(String.valueOf(precision));
+			fileWriter.append(COMMA_DELIMITER);
+			
+			fileWriter.append(String.valueOf(recall));
+			fileWriter.append(NEW_LINE_SEPARATOR);
+			
+			fileWriter.flush();
+		} catch(IOException e){
+			System.out.println("Error writing stats on file ");
+			e.printStackTrace();
+			close();
+		}
+	}
+	
+	public void appendPrecisionRecallHeader(){
+		try{
+			//Write the CSV file header
+			fileWriter.append(PRECISIONRECALL_HEADER.toString());
+		
+			//Add a new line separator after the header
+			fileWriter.append(NEW_LINE_SEPARATOR);
+		} catch(IOException e){
+			System.out.println("Error appending the header");
+			e.printStackTrace();
+			close();
+		}
+	}
+
 }
 
