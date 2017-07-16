@@ -88,7 +88,6 @@ public class CollectClassificationStatistics {
 		            	correctlyClassified[i]++;
 	            }
 	            count++;
-	            if(count==10) break;
 			}
 			
 			//calculate the classification percentage for every K

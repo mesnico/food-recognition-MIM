@@ -14,11 +14,11 @@ public class CollectMAPStatistics {
 	//directory containing all the images used for testing the system
 	private static final String PROBE_DIRECTORY = "data/test";
 	private static final String STATS_DIRECTORY = "stats/";
-	private static int TOTAL_IMAGE_TESTED = 0;
 		
 	public static void main(String[] args) throws Exception {
-		float[] precision=new float[Parameters.K];
-		float[] recall=new float[Parameters.K];
+		int totalImagesTested = 0;
+		float[] precision=new float[Parameters.K_REORDER];
+		float[] recall=new float[Parameters.K_REORDER];
 		File srcFolder = new File(PROBE_DIRECTORY);
 		File[] folders = srcFolder.listFiles();
 		//Data structure to save Class and Id 
@@ -33,7 +33,7 @@ public class CollectMAPStatistics {
 		//create a directory with the current timestamp
 		File currentDir = new File(STATS_DIRECTORY +"/"+ System.currentTimeMillis());
 		currentDir.mkdirs();
-		File globalDir = new File(currentDir.getAbsolutePath() + "/Global");
+		File globalDir = new File(currentDir.getAbsolutePath() + "/MAP");
         if (!globalDir.exists()){
         	globalDir.mkdir();
         }
@@ -81,17 +81,17 @@ public class CollectMAPStatistics {
 		   				num++;
 		   			}
 	   			}
-		   			File classFolder=new File(Parameters.SRC_FOLDER.getAbsolutePath()+"/"+imgFolder.getName());
-		   			float averagePrecision=precisionSum/classFolder.listFiles().length;
-		   			System.out.flush();
-		   			System.out.println(averagePrecision);
-		            averagePrecisionSum+=averagePrecision;
-		            TOTAL_IMAGE_TESTED++;
-		            count++;
+	   			File classFolder=new File(Parameters.SRC_FOLDER.getAbsolutePath()+"/"+imgFolder.getName());
+	   			float averagePrecision=precisionSum/classFolder.listFiles().length;
+	   			System.out.flush();
+	   			System.out.println(averagePrecision);
+	            averagePrecisionSum+=averagePrecision;
+	            totalImagesTested++;
+	            count++;
 	   		}
             
 			//calculates the MAP for the current class
-			float meanAveragePrecision=averagePrecisionSum/(float)1;
+			float meanAveragePrecision=averagePrecisionSum/(float)imgFiles.length;
 			
 			//outputs the MAP on file
 			csvMAPWriter.appendMAPStats(imgFolder.getName(),meanAveragePrecision);
@@ -102,9 +102,9 @@ public class CollectMAPStatistics {
 		CsvFileWriter csvPrecRecWriter=new CsvFileWriter(globalDir.getAbsolutePath() +"/PrecisionRecallStats.csv");
 		csvPrecRecWriter.appendPrecisionRecallHeader();
 		
-		for(int i=0;i<Parameters.K;i++){
-			precision[i]=precision[i]/(float)TOTAL_IMAGE_TESTED;
-			recall[i]=recall[i]/(float)TOTAL_IMAGE_TESTED;
+		for(int i=0;i<Parameters.K_REORDER;i++){
+			precision[i]=precision[i]/(float)totalImagesTested;
+			recall[i]=recall[i]/(float)totalImagesTested;
 			csvPrecRecWriter.appendPrecisionRecall((i+1),recall[i],precision[i]);
 		}
 		
