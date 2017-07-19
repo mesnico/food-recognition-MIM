@@ -43,8 +43,6 @@ public class CollectMAPStatistics {
         csvMAPWriter.appendMAPHeader();
         
 		for (File imgFolder: folders) {
-			/*if(!imgFolder.getName().equals("pizza"))
-				continue;*/
 			File[] imgFiles = imgFolder.listFiles();
 			
 			//initialize the writer to write the measurements for the single class

@@ -14,8 +14,7 @@ import java.util.List;
 public class Pivots {
 	
 	private SeqImageSearch seqPivots = new SeqImageSearch();
-	
-	//TODO
+
 	public Pivots(File pivotsFile) throws ClassNotFoundException, IOException {
 		//Load the pivots file
 		seqPivots.open(pivotsFile);
@@ -28,12 +27,10 @@ public class Pivots {
 		FeaturesStorage.store(pivs, Parameters.PIVOTS_FILE);
 	}
 	
-	//TODO
 	public static List<ImgDescriptor> makeRandomPivots(List<ImgDescriptor> ids, int nPivs) {
 		ArrayList<ImgDescriptor> pivots = null;
 		pivots = new ArrayList<ImgDescriptor>();
 		
-		//LOOP
 		//Create nPivs random pivots and add them in the pivots List
 		for(int i = 0; i < nPivs; i++){
 			Collections.shuffle(ids);
@@ -43,7 +40,6 @@ public class Pivots {
 		return pivots;
 	}
 	
-	//TODO
 	public String features2Text(ImgDescriptor imgF, int topK) {
 		StringBuilder sb = null;
 		sb = new StringBuilder();	
@@ -51,8 +47,8 @@ public class Pivots {
 		List<ImgDescriptor> l = seqPivots.search(imgF, topK);
 		String id = null;
 		String[] s = null;
-		//LOOP
-			//compose the text string using pivot ids
+		
+		//compose the text string using pivot ids
 		for(int i = 0; i < topK; i++){
 			id = l.get(i).getId();
 			s = id.split("\\.");

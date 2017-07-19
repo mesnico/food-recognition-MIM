@@ -14,7 +14,6 @@ public class CollectClassificationStatistics {
 	//directory containing all the images used for testing the system
 	private static final String PROBE_DIRECTORY = "data/test";
 	private static final String STATS_DIRECTORY = "stats/";
-	//private static final int NUM_CLASSES=101;
 	
 	public static void main(String[] args) throws Exception{
 		
@@ -72,7 +71,7 @@ public class CollectClassificationStatistics {
 	            for(int i=0; i<testK.length; i++){
 	            	int k = testK[i];
 	            	
-		            String classification = knn.classifyTest(foundImages,imgFile.getParentFile().getName(), k);
+		            String classification = knn.classifyTest(foundImages, k);
 		            int actualClassId = resultMap.get(classification);
 		            int targetClassId = resultMap.get(imgFolder.getName());
 		          

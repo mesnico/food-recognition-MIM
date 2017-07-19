@@ -75,9 +75,11 @@ public class RecognitionServlet extends HttpServlet {
         		Iterator i = fileItems.iterator();
         		String urlString;
         		
+        		//analyze all items in the request
         		while ( i.hasNext () ){
         			FileItem fi = (FileItem)i.next();
         			System.out.println(fi);
+        			//if it is a form field, it is the file name or the link
         			if(fi.isFormField()){
         				System.out.println(fi.getString());
         				if(fi.getFieldName().equals("image_link") && !fi.getString().equals("")){
@@ -105,6 +107,7 @@ public class RecognitionServlet extends HttpServlet {
         				
         			}
         	
+        			//if not a form field, the data encodes the image
     				if ( !fi.isFormField () ){
     					System.out.println("entro in image");
     					// Get the uploaded file parameters
@@ -126,7 +129,8 @@ public class RecognitionServlet extends HttpServlet {
     					fi.write( file ) ;
         				}
         			}
-              
+             
+        	 //search and classification code
              LucImageSearch l = new LucImageSearch(Parameters.PIVOTS_FILE, Parameters.TOP_K_QUERY);
              long starttime = System.currentTimeMillis();
              List<ImgDescriptor> foundImages = l.recognizeImage(file);

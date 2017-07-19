@@ -33,29 +33,4 @@ public class Output {
 		
 		return html;
 	}
-
-	public static void toHTML(List<ImgDescriptor> ids, String baseURI, File outputFile) {
-		String html = "<html>\n<body>\n";
-		html += generateHtmlResultsTable(ids, baseURI);
-		html += "</body>\n</html>";
-		
-		try {
-	        string2File(html, outputFile);
-			System.out.println("html generated");
-        } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
-	}
-
-	private static void string2File(String text, File file) throws IOException {
-		FileWriter fileWriter = null;
-		try {
-			fileWriter = new FileWriter(file);
-			fileWriter.write(text);
-		} finally {
-			if (fileWriter != null)
-				fileWriter.close();
-		}
-	}
 }

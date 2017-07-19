@@ -41,7 +41,6 @@ public class LucImageIndexing {
 		luceneImgIdx.closeIndex();
 	}
 	
-	//TODO
 	public LucImageIndexing(File pivotsFile, File datasetFile, int topKIdx) throws IOException, ClassNotFoundException {
 		//load the dataset and the pivots
 		this.pivots = new Pivots(pivotsFile);
@@ -50,7 +49,6 @@ public class LucImageIndexing {
 		
 	}
 	
-	//TODO
 	public void openIndex(String lucenePath) throws IOException {
 		//initialize Lucene stuff
 		Path absolutePath = Paths.get(lucenePath, "");
@@ -62,18 +60,16 @@ public class LucImageIndexing {
 		indexWriter = new IndexWriter(index, conf);
 	}
 	
-	//TODO
 	public void closeIndex() throws IOException {
 		//close Lucene writer
 		indexWriter.close();
 	}
 	
-	//TODO
 	public void index() throws ClassNotFoundException, IOException {
 		String st = null;
 		Document doc;
-		//LOOP
-			//index all dataset features into Lucene
+		
+		//index all dataset features into Lucene
 		for(ImgDescriptor i: idsDataset){
 			st = pivots.features2Text(i, topKIdx);
 			System.out.println(i.getName());
@@ -84,11 +80,10 @@ public class LucImageIndexing {
 		indexWriter.commit();
 	}
 	
-	//TODO
 	private Document createDoc(ImgDescriptor imgDes, String imgTXT) throws IOException{
 		Document doc = null;
 		doc = new Document();
-		//Create Fields.IMG and Fields.ID (and Fields.BINARY for the optional step) fields and add them in doc
+		//Create Fields.IMG and Fields.ID and Fields.BINARY fields and add them in doc
 		FieldType ft = new FieldType(StringField.TYPE_STORED);
 		ft.setIndexOptions(IndexOptions.DOCS);
 		Field f = new Field(Fields.ID, imgDes.getId(), ft);

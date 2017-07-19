@@ -32,19 +32,6 @@ public class LucImageSearch {
 	
 	private int topKSearch;
 	
-	public static void main(String[] args) throws Exception {
-		
-		LucImageSearch imgSearch = new LucImageSearch(Parameters.PIVOTS_FILE, Parameters.TOP_K_QUERY);
-		
-		imgSearch.openIndex(Parameters.LUCENE_PATH);
-		
-		//Image Query File
-		File imgQuery = new File(Parameters.SRC_FOLDER, "apple_pie/63651.jpg");
-				
-		List<ImgDescriptor> resLucene = imgSearch.recognizeImage(imgQuery);
-		
-	}
-	
 public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{		
 		openIndex(Parameters.LUCENE_PATH);
 		
@@ -56,26 +43,21 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 				
 		List<ImgDescriptor> resLucene = search(query, Parameters.K);
 		System.out.println("N° returned by Lucene: " + resLucene.size());
-		//Output.toHTML(resLucene, Parameters.BASE_URI, Parameters.RESULTS_HTML_LUCENE);
 		
-		//Uncomment for the optional step
 		long starttime = System.currentTimeMillis();
 		List<ImgDescriptor> resReordered = reorder(query, resLucene, Parameters.K_REORDER);
-		System.out.println("N° returned after reorder: " + resLucene.size());
+		System.out.println("N° returned after reorder: " + resReordered.size());
 		System.out.println("reordering time: "+(System.currentTimeMillis() - starttime)+"ms");
-		//Output.toHTML(resReordered, Parameters.BASE_URI, Parameters.RESULTS_HTML_REORDERED);
 		
 		return resReordered;
 	}
 	
-	//TODO
 	public LucImageSearch(File pivotsFile, int topKSearch) throws ClassNotFoundException, IOException {
 		//Initialize fields
 		this.pivots = new Pivots(pivotsFile);
 		this.topKSearch = topKSearch;
 	}
 	
-	//TODO
 	public void openIndex(String lucenePath) throws IOException {	
 		//Initialize Lucene stuff
 		Path absolutePath = Paths.get(lucenePath, "");
@@ -84,7 +66,6 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 		indexSearcher = new IndexSearcher(ir);
 	}
 	
-	//TODO
 	public List<ImgDescriptor> search(ImgDescriptor queryF, int k) throws ParseException, IOException, ClassNotFoundException{
 		List<ImgDescriptor> res = null;
 		res = new ArrayList<ImgDescriptor>();
@@ -96,11 +77,9 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 		Query q = p.parse(query);
 		
 		TopDocs hits = indexSearcher.search(q, k);
-		//LOOP to fill res
 			//for each result create an ImgDescriptor object and set ID and call setDist to set the score
 			for(int i = 0; i < hits.scoreDocs.length; i++){
 				int doc = hits.scoreDocs[i].doc;
-				//imgD = new ImgDescriptor(null, indexSearcher.doc(doc).get(Fields.ID));
 				BytesRef binary = indexSearcher.doc(doc).getBinaryValue(Fields.BINARY);
 				imgD = ImgDescriptor.fromBytes(binary.bytes);
 				imgD.setDist(hits.scoreDocs[i].score);
@@ -109,9 +88,7 @@ public List<ImgDescriptor> recognizeImage(File imgQuery) throws Exception{
 		return res;
 	}
 	
-	//TODO
 	public List<ImgDescriptor> reorder(ImgDescriptor queryF, List<ImgDescriptor> res, int k) throws IOException, ClassNotFoundException {
-		//LOOP
 		//for each result evaluate the distance with the query, call  setDist to set the distance, then sort the results
 		for(int i = 0; i < res.size(); i++){
 			double distance = queryF.distance(res.get(i));
