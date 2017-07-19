@@ -3,7 +3,6 @@ package it.unipi.ing.mim.img.lucene;
 import it.unipi.ing.mim.deep.DNNExtractor;
 import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
-import it.unipi.ing.mim.deep.tools.Output;
 import it.unipi.ing.mim.img.lucene.Fields;
 
 import java.io.File;

@@ -4,7 +4,6 @@ import it.unipi.ing.mim.deep.DNNExtractor;
 import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
 import it.unipi.ing.mim.deep.tools.FeaturesStorage;
-import it.unipi.ing.mim.deep.tools.Output;
 
 import java.io.File;
 import java.io.IOException;

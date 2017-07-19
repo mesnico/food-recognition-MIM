@@ -1,16 +1,13 @@
 package servlets;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
@@ -27,9 +24,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,9 +31,11 @@ import java.util.List;
  * Created by utente on 09/06/2017.
  */
 public class RecognitionServlet extends HttpServlet {
-   private boolean isMultipart;
+   /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
    private String filePath = "uploaded/";
-   private int maxFileSize = 50 * 1024;
    private int maxMemSize = 4 * 1024;
    private File file ;
 	
@@ -111,11 +107,11 @@ public class RecognitionServlet extends HttpServlet {
     				if ( !fi.isFormField () ){
     					System.out.println("entro in image");
     					// Get the uploaded file parameters
-    					String fieldName = fi.getFieldName();
+    					//String fieldName = fi.getFieldName();
     					String fileName = fi.getName();
-    					String contentType = fi.getContentType();
-    					boolean isInMemory = fi.isInMemory();
-    					long sizeInBytes = fi.getSize();
+    					//String contentType = fi.getContentType();
+    					//boolean isInMemory = fi.isInMemory();
+    					//long sizeInBytes = fi.getSize();
           
     					// Write the file
     					if( fileName.lastIndexOf("\\") >= 0 ){

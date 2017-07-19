@@ -1,7 +1,6 @@
 package it.unipi.ing.mim.stats;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class CollectClassificationStatistics {
 		
 		File srcFolder = new File(PROBE_DIRECTORY);
 		File[] folders = srcFolder.listFiles();
-		int numClasses = folders.length;
 		//Data structure to save Class and Id 
 		HashMap<String,Integer> resultMap=new HashMap<String,Integer>();
 		String label;

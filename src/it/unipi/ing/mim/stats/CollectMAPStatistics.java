@@ -6,7 +6,6 @@ import java.util.List;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
 import it.unipi.ing.mim.deep.Parameters;
-import it.unipi.ing.mim.deep.seq.SeqImageSearch;
 import it.unipi.ing.mim.img.lucene.LucImageSearch;
 
 public class CollectMAPStatistics {

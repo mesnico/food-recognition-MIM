@@ -1,11 +1,6 @@
 package it.unipi.ing.mim.deep.tools;
 
 import it.unipi.ing.mim.deep.ImgDescriptor;
-import it.unipi.ing.mim.deep.Parameters;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 
 public class Output {
